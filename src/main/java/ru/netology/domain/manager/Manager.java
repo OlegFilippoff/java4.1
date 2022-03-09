@@ -3,10 +3,12 @@ package ru.netology.domain.manager;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
+import ru.netology.domain.exeptions.NotFoundException;
 import ru.netology.domain.repository.RepositoryOfProducts;
 
 public class Manager {
     private RepositoryOfProducts repository;
+
 
 
     public Manager(RepositoryOfProducts repository) {
@@ -22,7 +24,13 @@ public class Manager {
     }
 
     public void removeById(int id) {
-        repository.removeById(id);
+//        try {
+//            if (repository.findById(id) == null) throw new RuntimeException ("No such id " + id);
+            repository.removeById(id);
+//        }catch (NullPointerException ex){
+//            System.out.println(ex.getMessage() + id);
+//            ex.printStackTrace();
+//        }
     }
 
     public Product[] searchBy(String text) {
