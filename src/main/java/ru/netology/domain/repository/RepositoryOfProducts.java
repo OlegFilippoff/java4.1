@@ -20,11 +20,6 @@ public class RepositoryOfProducts {
 
     public Product[] findAll() {
         return items;
-//        Product[] tmp = new Product[items.length];
-//        for (int i = 0; i < items.length; i++) {
-//            System.arraycopy(items,0,tmp,0,items.length);
-//        }
-//        return tmp;
     }
 
     public Product findById(int id) {
@@ -37,9 +32,9 @@ public class RepositoryOfProducts {
         return null;
     }
 
-    public void removeById(int id) throws RuntimeException {
+    public void removeById(int id) throws NotFoundException, RuntimeException {
 
-        //    try {
+            try {
         if (findById(id) == null) throw new NotFoundException("ID " + id + " does not exist");
 
         int length = items.length - 1;
@@ -53,13 +48,10 @@ public class RepositoryOfProducts {
         }
         items = tmp;
 
-//        } catch (NotFoundException ex) {
-//            System.out.println(ex.getMessage());
-//            ex.printStackTrace();
-//            throw new NotFoundException(ex.getMessage());
-//        }finally {
-//           System.out.println("Input new id");
-//        }
+        } catch (NotFoundException ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 }
 

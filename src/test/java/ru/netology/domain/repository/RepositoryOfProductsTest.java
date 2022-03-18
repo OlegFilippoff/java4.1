@@ -24,11 +24,19 @@ class RepositoryOfProductsTest {
     void removeByNonExistingIdInRepo() {
         repository.save(phone1);
         repository.save(phone2);
-        repository.removeById(8);
 
-  //      Assertions.assertThrows(NotFoundException.class, () -> repository.removeById(8));
+        Assertions.assertThrows(NotFoundException.class, () -> repository.removeById(8));
 
+    }
 
+    @Test
+    void removeByExistingIdInRepo() {
+        repository.save(phone1);
+        repository.save(phone2);
+        repository.removeById(05);
+        Product[] expected = {phone2};
+
+        assertArrayEquals(expected, repository.findAll());
     }
 }
 
