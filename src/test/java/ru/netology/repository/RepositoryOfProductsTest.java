@@ -1,4 +1,4 @@
-package ru.netology.domain.repository;
+package ru.netology.repository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
