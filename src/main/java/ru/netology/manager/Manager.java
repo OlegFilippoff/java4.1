@@ -1,14 +1,12 @@
-package ru.netology.domain.manager;
+package ru.netology.manager;
 
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
-import ru.netology.domain.exeptions.NotFoundException;
-import ru.netology.domain.repository.RepositoryOfProducts;
+import ru.netology.repository.RepositoryOfProducts;
 
 public class Manager {
     private RepositoryOfProducts repository;
-
 
 
     public Manager(RepositoryOfProducts repository) {
@@ -23,32 +21,18 @@ public class Manager {
         return repository.findAll();
     }
 
-    public void removeById(int id) {
-//        try {
-//            if (repository.findById(id) == null) throw new RuntimeException ("No such id " + id);
-            repository.removeById(id);
-//        }catch (NullPointerException ex){
-//            System.out.println(ex.getMessage() + id);
-//            ex.printStackTrace();
-//        }
-    }
-
     public Product[] searchBy(String text) {
         Product[] result = new Product[0];
-        for (Product item :
-                repository.findAll()) {
+        for (Product item : repository.findAll()) {
             if (matches(item, text)) {
                 Product[] tmp = new Product[result.length + 1];
                 System.arraycopy(result, 0, tmp, 0, result.length);
                 tmp[tmp.length - 1] = item;
-
                 result = tmp;
-
             }
         }
         return result;
     }
-
 
     public boolean matches(Product item, String search) {
         if (item instanceof Book) {
@@ -62,8 +46,6 @@ public class Manager {
 
         }
 
-        //   return false;
-
         if (item instanceof Smartphone) {
             Smartphone phone = (Smartphone) item;
             if (phone.getModel().contains(search)) {
@@ -71,12 +53,14 @@ public class Manager {
             }
             if (phone.getName().contains(search)) {
                 return true;
-
-
             }
-            return false;
+
         }
         return false;
+    }
+
+    public void removeById(int id) {
+        repository.removeById(id);
     }
 }
 
